@@ -5,8 +5,7 @@ import "./styles.scss"
 
 
 export default function Empty(props) {
-
-
+  
 	return (
 		<main className="appointment__add" >
       <img 

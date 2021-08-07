@@ -10,7 +10,6 @@ export default function Form(props) {
 
 	const [userName, setName] = useState(name || "");
 	const [latestInterviewer, setInterviewer] = useState(interviewer || null);
-
 	const handleNameChange = (event) => {
 		setName(event.target.value)
 	}

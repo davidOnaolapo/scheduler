@@ -4,21 +4,21 @@ import DayListItem from "components/DayListItem"
 
 
 export default function DayList(props) {
-    // props.setDay(props.day);
+    const {days, day, setDay} = props;
 
-    const days = props.days.map((day) => {
+    const allDays = days.map((givenDay) => {
       return <DayListItem
-        key={day.id}  
-        name={day.name} 
-        spots={day.spots} 
-        selected={day.name === props.day}
-        setDay={props.setDay}  
+        key={givenDay.id}  
+        name={givenDay.name} 
+        spots={givenDay.spots} 
+        selected={givenDay.name === day}
+        setDay={setDay}  
       />
     })
     return (
       <ul>
         {
-          days
+          allDays
         }
       </ul>
     );

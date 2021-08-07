@@ -8,28 +8,20 @@ import classNames from 'classnames/bind';
 export default function InverviewerListItem(props) {
   const { id, name, avatar, selected, setInterviewer } = props
 
-  const [beenSelected, setSelected] = useState(selected)
-
   const handleSelection = (event) => {
     //set the state to have the current celected interviewer
     setInterviewer();
 
-    //handle selection
-    if(beenSelected) {
-      setSelected(false);
-    } else {
-      setSelected(true);
-    }
   }
 
   const interviewerItemClass = classNames("interviewers__item", {
-    "interviewers__item--selected": beenSelected,
+    "interviewers__item--selected": selected,
   })
 
   return (
     <li className={interviewerItemClass}  onClick={handleSelection}>
       <img className="interviewers__item-image" src={avatar} alt={name}/>
-        {beenSelected && name}
+        {selected && name}
     </li>
     
   )
