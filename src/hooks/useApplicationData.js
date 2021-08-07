@@ -4,7 +4,6 @@ import axios from 'axios';
 export default function useApplicationData () {
   const [state, setState] = useState({
     day: "Monday",
-    toggleSpots: 0,
     days: [],
     appointments: {}
   });
@@ -32,6 +31,10 @@ export default function useApplicationData () {
       ...state.appointments[id],
       interview: { ...interview }
     };
+
+    const day = {
+     
+    };
     //update db, then state
     return new Promise((resolve, reject) => {
       axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
@@ -40,7 +43,9 @@ export default function useApplicationData () {
           ...state.appointments,
           [id]: appointment
         }
-        // setToggleSpots()
+        const days = {
+
+        }
         return resolve(setState({
           ...state,
           appointments
@@ -54,9 +59,13 @@ export default function useApplicationData () {
   }
 
   const cancelInterview = (id) => {
+    const day = {
+
+    }
     return new Promise((resolve, reject) => {
       axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then((res) => {
+        //setstate for days in resolve
         return resolve(console.log(res));
       })
       .catch((err) => {
@@ -64,15 +73,10 @@ export default function useApplicationData () {
       })  
     })     
   } 
-  
-  const toggleSpots = (direction) => {
-    console.log("I'm in toggleSpots, dir is", direction)
-  }
 
   return {
     state,
     setDay,
-    toggleSpots,
     bookInterview,
     cancelInterview
   }

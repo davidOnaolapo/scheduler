@@ -7,16 +7,8 @@ import "components/DayListItem.scss";
 
 export default function DayListItem(props) {
   const { spots, name, selected, setDay } = props;
-  const [count, setCount] = useState(0);
 
   const formatSpots = () => {
-    if(count !== spots) {
-      setCount(count+1);
-    } 
-    
-    if(count !== spots) {
-      setCount(count-1);
-    }  
     setDay(name)  
   }
 
@@ -28,14 +20,14 @@ export default function DayListItem(props) {
   return (
     <li onClick={formatSpots} className={dayItemClass}>
       <h2 className="text--regular">{name}</h2>
-      {((spots - count) === 0) &&
+      {((spots) === 0) &&
         <h3 className="text--light">no spots remaining</h3> 
       }
-      {((spots - count) === 1) &&
+      {((spots) === 1) &&
         <h3 className="text--light">1 spot remaining</h3> 
       }
-      {((spots - count) > 1) &&
-        <h3 className="text--light">{spots - count} spots remaining</h3>
+      {((spots) > 1) &&
+        <h3 className="text--light">{spots} spots remaining</h3>
       }
     </li>
   );
