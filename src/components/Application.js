@@ -40,33 +40,35 @@ export default function Application(props) {
       interview: { ...interview }
     };
     //update db, then state
-    return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
+    return new Promise((resolve, reject) => {
+      axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then((res) => {
-        console.log(res)
-
         const appointments = {
           ...state.appointments,
           [id]: appointment
         }
-        setState({
+        return resolve(setState({
           ...state,
           appointments
-        });
+        }));
       })
       .catch((err) => {
-        console.log(err.message)
+        console.log("I'm in catch block for bookInterview!")
+        return reject(console.log(err.message))
       })   
+    })  
   }
 
   const cancelInterview = (id) => {
-
-       return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+    return new Promise((resolve, reject) => {
+      axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then((res) => {
-        console.log(res)
+        return resolve(console.log(res));
       })
       .catch((err) => {
-        console.log(err.message)
-      })   
+        return reject(console.log(err.message));
+      })  
+    })     
   }  
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);

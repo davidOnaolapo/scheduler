@@ -10,6 +10,7 @@ import Empty from "./Empty.js"
 import Form from "./Form.js"
 import Status from "./Status.js"
 import Confirm from "./Confirm.js"
+import Error from "./Error.js"
 
 
 const EMPTY = "EMPTY";
@@ -19,6 +20,9 @@ const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
+
 
 
 export default function Appointment(props) {
@@ -45,6 +49,11 @@ export default function Appointment(props) {
 		bookInterview(id, interview)
 			.then((res) => {
 				transition(SHOW);
+			})
+			.catch((err) =>{
+				console.log("In Appointments----")
+				console.log(err);
+				transition(ERROR_SAVE, true);
 			})		
 	}
 
@@ -54,6 +63,9 @@ export default function Appointment(props) {
 		cancelInterview(id)
 			.then((res) => {
 				transition(EMPTY);		
+			})
+			.catch((err) => {
+				transition(ERROR_DELETE, true);
 			})		
 	}
 
@@ -87,6 +99,9 @@ export default function Appointment(props) {
 				{mode === DELETING && <Status message={DELETING} />}
 				{mode === CONFIRM && <Confirm message="Are you sure you would like to delete?" 
 					onCancel={onCancel} onConfirm={onConfirmDelete} />}
+				{mode === ERROR_SAVE  && <Error message="Error Saving Appointment" onClose = {onCancel} />}
+				{mode === ERROR_DELETE  && <Error message="Error Deleting Appointment" onClose = {onCancel} />}			
+			
 			</div>
 		</Fragment>	
 	)

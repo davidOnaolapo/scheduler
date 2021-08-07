@@ -11,7 +11,10 @@ export default function InverviewerListItem(props) {
   const [beenSelected, setSelected] = useState(selected)
 
   const handleSelection = (event) => {
+    //set the state to have the current celected interviewer
     setInterviewer();
+
+    //handle selection
     if(beenSelected) {
       setSelected(false);
     } else {
