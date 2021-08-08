@@ -31,11 +31,12 @@ export default function useApplicationData () {
       ...state.appointments[id],
       interview: { ...interview }
     };
+    //create a new day object with resolved spots and appointments using the helper
+    // const resolveSpots =  getNewDay(state, state.day, id)[0];
+    // const day = resolveSpots[0];
+    // const dayId = resolveSpots[1];
 
-    const day = {
-     
-    };
-    //update db, then state
+    //update db, with appointment, then state of app
     return new Promise((resolve, reject) => {
       axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then((res) => {
@@ -43,12 +44,14 @@ export default function useApplicationData () {
           ...state.appointments,
           [id]: appointment
         }
-        const days = {
-
-        }
+        // const days = {
+        //   ...state.days,
+        //   [dayId]: day
+        // }
         return resolve(setState({
           ...state,
-          appointments
+          appointments,
+          // days
         }));
       })
       .catch((err) => {
