@@ -1,13 +1,15 @@
 import {useState, useEffect} from "react";
 import axios from 'axios';
 
+import { updateSpots } from "helpers/selectors"
+
 export default function useApplicationData () {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {}
   });
-  //To resetDb
+  // To resetDb
   // axios.get(`http://localhost:8001/api/debug/reset`)
   //   .then((yo) => console.log("Ireset", yo))
 
@@ -31,10 +33,6 @@ export default function useApplicationData () {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    //create a new day object with resolved spots and appointments using the helper
-    // const resolveSpots =  getNewDay(state, state.day, id)[0];
-    // const day = resolveSpots[0];
-    // const dayId = resolveSpots[1];
 
     //update db, with appointment, then state of app
     return new Promise((resolve, reject) => {
@@ -44,15 +42,14 @@ export default function useApplicationData () {
           ...state.appointments,
           [id]: appointment
         }
-        // const days = {
-        //   ...state.days,
-        //   [dayId]: day
-        // }
-        return resolve(setState({
+        const days = updateSpots(state, state.day, "creating");
+        setState({
           ...state,
           appointments,
-          // days
-        }));
+          days
+        })
+
+        return resolve();
       })
       .catch((err) => {
         console.log("I'm in catch block for bookInterview!")
@@ -62,13 +59,15 @@ export default function useApplicationData () {
   }
 
   const cancelInterview = (id) => {
-    const day = {
-
-    }
+    
     return new Promise((resolve, reject) => {
       axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then((res) => {
-        //setstate for days in resolve
+        const days = updateSpots(state, state.day, "Deleting")
+        setState({
+          ...state,
+          days
+        })
         return resolve(console.log(res));
       })
       .catch((err) => {

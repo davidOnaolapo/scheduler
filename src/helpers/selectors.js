@@ -1,6 +1,3 @@
-
-
-
 function getAppointmentsForDay(state, day) {
   if(state.days.length === 0) {
     return []
@@ -70,10 +67,26 @@ function getInterviewersForDay(state, day) {
   return InterviewersForDay;
 }
 
+const updateSpots = (state, day, requestType) => {
+  const currentDayObjIndex = state.days.findIndex(dayObj => dayObj.name === day);
+
+  const days = [...state.days]
+  if (requestType === "creating") {
+    days[currentDayObjIndex].spots = days[currentDayObjIndex].spots - 1
+  } else {
+    days[currentDayObjIndex].spots = days[currentDayObjIndex].spots + 1
+  }
+  return days;
+}
+
+
+
+
 module.exports = {
   getAppointmentsForDay,
   getInterview,
-  getInterviewersForDay
+  getInterviewersForDay,
+  updateSpots
 }
 
 

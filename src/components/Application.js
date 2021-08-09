@@ -6,7 +6,7 @@ import Appointment from "components/Appointment/index"
 import Button from "./Button";
 import DayList from "./DayList"
 
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors"
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors"
 
 export default function Application(props) {
   const {
