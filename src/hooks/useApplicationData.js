@@ -9,9 +9,6 @@ export default function useApplicationData () {
     days: [],
     appointments: {}
   });
-  // To resetDb
-  // axios.get(`http://localhost:8001/api/debug/reset`)
-  //   .then((yo) => console.log("Ireset", yo))
 
   useEffect(() => {
     const baseURL = 'http://localhost:8001/api/';
@@ -42,7 +39,7 @@ export default function useApplicationData () {
           ...state.appointments,
           [id]: appointment
         }
-        const days = updateSpots(state, state.day, "creating");
+        const days = updateSpots(state.day, state.days, appointments);
         setState({
           ...state,
           appointments,
@@ -63,11 +60,16 @@ export default function useApplicationData () {
     return new Promise((resolve, reject) => {
       axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then((res) => {
-        const days = updateSpots(state, state.day, "Deleting")
+        const appointments = {
+          ...state.appointments,
+        }
+        appointments[id].interview = null;
+
+        const days = updateSpots(state.day, state.days, appointments);
         setState({
           ...state,
           days
-        })
+        })      
         return resolve(console.log(res));
       })
       .catch((err) => {

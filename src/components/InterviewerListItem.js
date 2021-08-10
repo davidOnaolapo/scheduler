@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 import "components/InterviewerListItem.scss";
 import classNames from 'classnames/bind';
@@ -11,7 +11,6 @@ export default function InverviewerListItem(props) {
   const handleSelection = (event) => {
     //set the state to have the current celected interviewer
     setInterviewer();
-
   }
 
   const interviewerItemClass = classNames("interviewers__item", {

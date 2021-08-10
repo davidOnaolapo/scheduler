@@ -1,4 +1,4 @@
-function getAppointmentsForDay(state, day) {
+export const getAppointmentsForDay = (state, day) => {
   if(state.days.length === 0) {
     return []
   }
@@ -21,7 +21,7 @@ function getAppointmentsForDay(state, day) {
   return appointmentsForDay;
 }
 
-function getInterview(state, interview) {
+export const getInterview = (state, interview) => {
   if(!interview) {
     return null
   }
@@ -45,7 +45,7 @@ function getInterview(state, interview) {
   return interviewData;
 }
 
-function getInterviewersForDay(state, day) {
+export const getInterviewersForDay = (state, day) => {
   if(state.days.length === 0) {
     return []
   }
@@ -67,27 +67,28 @@ function getInterviewersForDay(state, day) {
   return InterviewersForDay;
 }
 
-const updateSpots = (state, day, requestType) => {
-  const currentDayObjIndex = state.days.findIndex(dayObj => dayObj.name === day);
+export const updateSpots = (dayName, days, appointments) => {
+  const newDays = [...days]
 
-  const days = [...state.days]
-  if (requestType === "creating") {
-    days[currentDayObjIndex].spots = days[currentDayObjIndex].spots - 1
-  } else {
-    days[currentDayObjIndex].spots = days[currentDayObjIndex].spots + 1
+  //get the day obj
+  const index = newDays.findIndex(day => day.name === dayName);
+  const dayObj = newDays[index];
+
+  let spots = 0;
+  for (const id of dayObj.appointments) {
+    const appointment = appointments[id];
+    if (!appointment.interview) {
+      spots++;
+    }
   }
-  return days;
+  console.log("spots____ = ", spots);
+
+  const newDay = { ...dayObj, spots}
+
+  newDays[index] = newDay
+  return newDays;
 }
 
-
-
-
-module.exports = {
-  getAppointmentsForDay,
-  getInterview,
-  getInterviewersForDay,
-  updateSpots
-}
 
 
 
