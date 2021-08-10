@@ -42,7 +42,8 @@ export default function Form(props) {
         		type="text"
 						value = {userName}
         		placeholder="Enter Student Name"
-						onChange={handleNameChange}						
+						onChange={handleNameChange}
+						data-testid = "student-name-input"						
         		/*
           		This must be a controlled component
         		*/
