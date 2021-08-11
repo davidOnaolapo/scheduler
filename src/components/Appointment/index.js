@@ -40,13 +40,15 @@ export default function Appointment(props) {
 	}
 
 	const save = (name, interviewer) => {
-		const interview = {
-			student: name,
-			interviewer: interviewer.id
-		};
-		transition(SAVING);
+		if(interviewer) {
+			const interview = {
+				student: name,
+				interviewer: interviewer.id
+			};
 
-		bookInterview(id, interview)
+			transition(SAVING);
+
+			bookInterview(id, interview)
 			.then((res) => {
 				transition(SHOW);
 			})
@@ -54,7 +56,8 @@ export default function Appointment(props) {
 				console.log("In Appointments----")
 				console.log(err);
 				transition(ERROR_SAVE, true);
-			})		
+			})
+		}			
 	}
 
 	const onConfirmDelete = () => {
@@ -78,11 +81,11 @@ export default function Appointment(props) {
 	}
 	
 	return (
-		<Fragment>
+		<Fragment >
 			<section>
 				<Header time = {time}/>
 			</section>
-			<div>
+			<div  data-testid="appointment">
 				{mode === EMPTY && <Empty onAdd={create} />}
 				{mode === SHOW && (
   				<Show
