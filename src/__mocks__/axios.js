@@ -89,5 +89,14 @@ export default {
       data: fixtures.interviewers
     });
     
+  }),
+
+  delete: jest.fn(url => {   
+    return Promise.resolve({
+      status: 204,
+      statusText: "OK",
+      data: fixtures.interviewers
+    });
+    
   })
 }
