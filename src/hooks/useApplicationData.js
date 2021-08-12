@@ -11,7 +11,7 @@ export default function useApplicationData () {
   });
 
   useEffect(() => {
-    
+    //Load all the data from the database when the page loads
     Promise.all([
       axios.get( '/api/days'),
       axios.get(  '/api/appointments'),
@@ -48,14 +48,13 @@ export default function useApplicationData () {
         return resolve();
       })
       .catch((err) => {
-        console.log("I'm in catch block for bookInterview!")
         return reject(console.log(err.message))
       })   
     })  
   }
 
-  const cancelInterview = (id) => {
-    
+  //Delete the appointment from the db, then update the state of the app
+  const cancelInterview = (id) => {   
     return new Promise((resolve, reject) => {
       axios.delete(`/api/appointments/${id}`)
       .then((res) => {

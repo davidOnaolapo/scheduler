@@ -22,13 +22,10 @@ describe("Application", () => {
     const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"))
-    // console.log(prettyDOM(container));
 
     const appointments = getAllByTestId(container, "appointment");
-    // console.log(prettyDOM(appointments));
 
     const appointment = getAllByTestId(container, "appointment")[0];
-    // console.log(prettyDOM(appointment));
 
     fireEvent.click(getByAltText(appointment, "Add"));
 
@@ -38,15 +35,12 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     fireEvent.click(getByText(appointment, "Save"));
-    // debug()
-    // console.log(prettyDOM(appointment));
     expect(getByText(appointment, "SAVING")).toBeInTheDocument()
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"))
 
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-    console.log(prettyDOM(day));
     expect(getByText(day, "no spots remaining")).toBeInTheDocument()
   });
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
@@ -75,7 +69,7 @@ describe("Application", () => {
     const { container } = render(<Application />);
   
     // 2. Wait until the text "Archie Cohen" is displayed.
-    // await waitForElement(() => getByText(container, "Archie Cohen"));
+    await waitForElement(() => getByText(container, "Archie Cohen"));
     // const appointment = getAllByTestId(container, "appointment").find(
     //   appointment => queryByText(appointment, "Archie Cohen")
     // );

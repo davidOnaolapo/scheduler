@@ -12,7 +12,7 @@ import Status from "./Status.js"
 import Confirm from "./Confirm.js"
 import Error from "./Error.js"
 
-
+//Modes
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -38,7 +38,7 @@ export default function Appointment(props) {
 	const onCancel = () => {
 		back();
 	}
-
+	//To book an interview
 	const save = (name, interviewer) => {
 		if(interviewer) {
 			const interview = {
@@ -53,13 +53,12 @@ export default function Appointment(props) {
 				transition(SHOW);
 			})
 			.catch((err) =>{
-				console.log("In Appointments----")
 				console.log(err);
 				transition(ERROR_SAVE, true);
 			})
 		}			
 	}
-
+	//When deletion is confirmed
 	const onConfirmDelete = () => {
 		transition(DELETING);
 		
